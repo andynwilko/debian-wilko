@@ -30,7 +30,7 @@ chown -R $username:$username /home/$username
 # Installing Essential Programs 
 nala install feh kitty rofi picom thunar nitrogen lxpolkit x11-xserver-utils unzip wget pipewire wireplumber pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev zoxide -y
 # Installing Other less important Programs
-nala install neofetch flameshot psmisc mangohud vim lxappearance papirus-icon-theme lxappearance fonts-noto-color-emoji lightdm -y
+nala install neofetch flameshot psmisc mangohud vim lxappearance papirus-icon-theme lxappearance fonts-noto-color-emoji sddm -y
 
 # Download Nordic Theme
 cd /usr/share/themes/
@@ -58,15 +58,15 @@ cd Nordzy-cursors
 cd $builddir
 rm -rf Nordzy-cursors
 
-# Install floorp-browser
+# Install brave-browser
 nala install apt-transport-https curl -y
-curl -fsSL https://ppa.ablaze.one/KEY.gpg | gpg --dearmor -o /usr/share/keyrings/Floorp.gpg
-curl -sS --compressed -o /etc/apt/sources.list.d/Floorp.list 'https://ppa.ablaze.one/Floorp.list'
+curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
 nala update
-nala install floorp -y
+nala install brave-browser -y
 
 # Enable graphical login and change target from CLI to GUI
-systemctl enable lightdm
+systemctl enable sddm
 systemctl set-default graphical.target
 
 # Enable wireplumber audio service
@@ -80,8 +80,8 @@ bash setup.sh
 cd $builddir
 
 # DWM Setup
-git clone https://github.com/ChrisTitusTech/dwm-titus
-cd dwm-titus
+git clone https://github.com/andynwilko/dwm-wilko
+cd dwm-wilko
 make clean install
 cp dwm.desktop /usr/share/xsessions
 cd $builddir
